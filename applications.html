@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Applications — Public Service Commission </title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="topbar">
+    <div class="container d-flex justify-content-between">
+        <div>Contact: +977-01-1234567 | Email: info@psc.gov.np</div>
+        <div>Government of Nepal • Public Service</div>
+    </div>
+</div>
+
+<header class="header-main">
+    <div class="container d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-3">
+            <img src="emblem.png" alt="Emblem" style="height:60px;">
+            <div>
+                <h1 class="site-title"><a href="index.html" class="text-decoration-none">Public Service Commission (Sample)</a></h1>
+                <div class="text-muted" style="font-size:13px;">Applications and Policies</div>
+            </div>
+        </div>
+        <div class="d-none d-md-flex align-items-center">
+            <div class="me-2">Language: <strong>English</strong></div>
+        </div>
+    </div>
+</header>
+
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+        <button class="navbar-toggler btn btn-outline-light d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">☰</button>
+        <div class="collapse navbar-collapse" id="navMain">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link text-white px-3" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link text-white px-3" href="notices.html">Notices</a></li>
+                <li class="nav-item"><a class="nav-link text-white px-3 active" href="applications.html">Applications/Regulations</a></li>
+                <li class="nav-item"><a class="nav-link text-white px-3" href="exams.html">Exams/Results</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-4">
+        <div class="row gy-4">
+            <div class="col-lg-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Open Positions</h5>
+
+                        <div class="mb-3 d-flex gap-2">
+                            <input id="searchInput" class="form-control" placeholder="Search by position, department or advertisement number..." />
+                            <select id="filterCat" class="form-select" style="max-width:160px;">
+                                <option value="">All Departments</option>
+                                <option>Administration</option>
+                                <option>Education</option>
+                                <option>Health</option>
+                            </select>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="appsTable" class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Advertisement/Position</th>
+                                        <th>Department</th>
+                                        <th>Number of Posts</th>
+                                        <th>Duration</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-cat="Administration">
+                                        <td>
+                                            <div class="fw-semibold">Service Group A (Administration) — Advertisement #2025/01</div>
+                                            <div class="text-muted form-note">Summary: Senior Administrative Position</div>
+                                        </td>
+                                        <td>Administration</td>
+                                        <td>5</td>
+                                        <td><span class="badge badge-open">Open — 2025-02-15</span></td>
+                                        <td>
+                                            <a href="files/app-form-admin.pdf" class="btn btn-sm btn-outline-primary" download>Form</a>
+                                            <button class="btn btn-sm btn-primary ms-1" onclick="openApply('Service Group A (Administration)','#2025/01')">Apply</button>
+                                            <button class="btn btn-sm btn-link" onclick="toggleDetails(this)">Details</button>
+                                            <div class="mt-2 d-none detail-box">
+                                                <div class="card card-body p-2">
+                                                    Qualifications: Bachelor's degree or equivalent. Application Fee: Rs. 1000.
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr data-cat="Education">
+                                        <td>
+                                            <div class="fw-semibold">Education Assistant — Advertisement #2024/45</div>
+                                            <div class="text-muted form-note">Summary: Provincial Level Teaching Position</div>
+                                        </td>
+                                        <td>Education</td>
+                                        <td>120</td>
+                                        <td><span class="badge badge-dead">Closed — 2024-12-31</span></td>
+                                        <td>
+                                            <a href="files/app-form-teacher.pdf" class="btn btn-sm btn-outline-primary" download>Form</a>
+                                            <button class="btn btn-sm btn-secondary ms-1" disabled>Closed</button>
+                                            <button class="btn btn-sm btn-link" onclick="toggleDetails(this)">Details</button>
+                                            <div class="mt-2 d-none detail-box">
+                                                <div class="card card-body p-2">
+                                                    Qualifications: Educational certificate and trainer certificate required.
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr data-cat="Health">
+                                        <td>
+                                            <div class="fw-semibold">Health Assistant — Advertisement #2025/03</div>
+                                            <div class="text-muted form-note">Summary: District Health Office Positions</div>
+                                        </td>
+                                        <td>Health</td>
+                                        <td>30</td>
+                                        <td><span class="badge badge-open">Open — 2025-02-28</span></td>
+                                        <td>
+                                            <a href="files/app-form-health.pdf" class="btn btn-sm btn-outline-primary" download>Form</a>
+                                            <button class="btn btn-sm btn-primary ms-1" onclick="openApply('Health Assistant','#2025/03')">Apply</button>
+                                            <button class="btn btn-sm btn-link" onclick="toggleDetails(this)">Details</button>
+                                            <div class="mt-2 d-none detail-box">
+                                                <div class="card card-body p-2">
+                                                    Qualifications: Medical certificate and experience preferred.
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card card-list">
+                    <div class="card-body">
+                        <h6 class="card-title">Important Application Instructions</h6>
+                        <ul>
+                            <li>All submitted applications will be evaluated based on technical qualifications and eligibility.</li>
+                            <li>Fill out the application form correctly and attach all required documents.</li>
+                            <li>Bank and payment details for application fees are provided within the form.</li>
+                        </ul>
+                        <p class="mb-0 form-note">For queries, contact: <a href="mailto:info@example.gov.np">info@example.gov.np</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="col-lg-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6 class="card-title">Required Documents</h6>
+                        <ul class="mb-0" style="padding-left:18px;">
+                            <li>Identity Proof (Citizenship Certificate/Passport)</li>
+                            <li>Educational Certificates and Transcripts</li>
+                            <li>Experience Certificate (if applicable)</li>
+                            <li>Passport Photo and Citizenship Copy</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6 class="card-title">Latest Applicant Information</h6>
+                        <p class="mb-1">New advertisements and deadlines are published regularly.</p>
+                        <a class="btn btn-sm btn-outline-primary" href="notices.html">All Notices</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">Contact</h6>
+                        <address class="mb-0">
+                            Public Service Commission, Kantipath<br>
+                            Kathmandu, Nepal<br>
+                            Phone: +977-1-xxxxxxx<br>
+                            Email: <a href="mailto:info@example.gov.np">info@example.gov.np</a>
+                        </address>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Apply Modal -->
+    <div class="modal fade" id="applyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form id="applyForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Online Application</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="applyFor" class="mb-2 fw-semibold"></div>
+
+                        <div class="mb-2">
+                            <label class="form-label">Full Name</label>
+                            <input name="name" class="form-control" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Email</label>
+                            <input name="email" type="email" class="form-control" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Phone</label>
+                            <input name="phone" class="form-control" required>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Form (PDF)</label>
+                            <input name="document" type="file" accept="application/pdf" class="form-control" required>
+                            <div class="form-note mt-1">Upload all required documents combined into a single PDF.</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-4">
+        <div id="successMessage" class="alert alert-success d-none">
+            <h5>✓ Application submitted successfully!</h5>
+            <p id="applicationNumber" class="mb-1"></p>
+            <p class="mb-0">
+                <strong>Important:</strong> Contact the relevant department to check your application status.
+            </p>
+        </div>
+
+        <div id="errorMessage" class="alert alert-danger d-none"></div>
+    </div>
+
+    <footer class="footer">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>© 2025 Public Service Commission — Sample</div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    const searchInput = document.getElementById('searchInput');
+    const filterCat = document.getElementById('filterCat');
+    const table = document.getElementById('appsTable').getElementsByTagName('tbody')[0];
+
+    function matchesFilter(row, q, cat){
+        const text = row.textContent.toLowerCase();
+        if(q && !text.includes(q)) return false;
+        if(cat && row.getAttribute('data-cat') !== cat) return false;
+        return true;
+    }
+
+    function applyFilters(){
+        const q = searchInput.value.trim().toLowerCase();
+        const cat = filterCat.value;
+        Array.from(table.rows).forEach(r=>{
+            r.style.display = matchesFilter(r,q,cat) ? '' : 'none';
+        });
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    filterCat.addEventListener('change', applyFilters);
+
+    function toggleDetails(btn){
+        const tr = btn.closest('tr');
+        const box = tr.querySelector('.detail-box');
+        box.classList.toggle('d-none');
+    }
+
+    let currentApplicationId = null;
+    const applyModal = new bootstrap.Modal(document.getElementById('applyModal'));
+    const applyForEl = document.getElementById('applyFor');
+
+    function openApply(title, ref){
+        applyForEl.textContent = title + ' — ' + ref;
+        currentApplicationId = 1;
+        applyModal.show();
+    }
+
+    document.getElementById('applyForm').addEventListener('submit', async function(e){
+        e.preventDefault();
+
+        if(!currentApplicationId){
+            alert('Could not retrieve application ID. Please try again.');
+            return;
+        }
+        
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+        
+        const formData = new FormData();
+        formData.append('application_id', currentApplicationId);
+        formData.append('full_name', this.name.value);
+        formData.append('email', this.email.value);
+        formData.append('phone', this.phone.value);
+        formData.append('document', this.document.files[0]);
+        
+        try {
+            const response = await fetch('api/submit_application.php', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                const appNum = result.application_id || result.message?.match(/\d+/)?.[0] || '';
+                const numberText = appNum ? 'Application Number: ' + appNum : '';
+                document.getElementById('applicationNumber').textContent = numberText;
+                document.getElementById('successMessage').classList.remove('d-none');
+                document.getElementById('errorMessage').classList.add('d-none');
+                applyModal.hide();
+                this.reset();
+                alert(numberText ? `Your application was successful. ${numberText}` : 'Your application was successful.');
+            } else {
+                document.getElementById('errorMessage').textContent = result.message || 'Failed to submit application.';
+                document.getElementById('errorMessage').classList.remove('d-none');
+                document.getElementById('successMessage').classList.add('d-none');
+                alert(result.message || 'Failed to submit application. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error submitting application:', error);
+            document.getElementById('errorMessage').textContent = 'An error occurred while submitting the application. Please try again.';
+            document.getElementById('errorMessage').classList.remove('d-none');
+            document.getElementById('successMessage').classList.add('d-none');
+            alert('An error occurred while submitting the application. Please try again.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        }
+    });
+    </script>
+</body>
+</html>

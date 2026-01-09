@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Test Application Submission</title>
+</head>
+<body>
+    <h2>Test Application Submission</h2>
+    
+    <form id="testForm">
+        <div>
+            <label>Application ID: <input type="number" name="application_id" value="1" required></label>
+        </div>
+        <div>
+            <label>Full Name: <input type="text" name="full_name" value="Test User" required></label>
+        </div>
+        <div>
+            <label>Email: <input type="email" name="email" value="test@example.com" required></label>
+        </div>
+        <div>
+            <label>Phone: <input type="tel" name="phone" value="9841234567" required></label>
+        </div>
+        <div>
+            <label>Document (PDF): <input type="file" name="document" accept=".pdf" required></label>
+        </div>
+        <button type="submit">Submit Test</button>
+    </form>
+    
+    <div id="result" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc;"></div>
+    
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Submitting...';
+            
+            const formData = new FormData(this);
+            
+            console.log('FormData contents:');
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+            
+            try {
+                const response = await fetch('../api/submit_application.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                
+                const text = await response.text();
+                console.log('Response text:', text);
+                
+                let result;
+                try {
+                    result = JSON.parse(text);
+                } catch (e) {
+                    resultDiv.innerHTML = `<strong style="color: red;">Invalid JSON Response:</strong><pre>${text}</pre>`;
+                    return;
+                }
+                
+                if (result.success) {
+                    resultDiv.innerHTML = `<strong style="color: green;">Success!</strong><br>${result.message}`;
+                } else {
+                    resultDiv.innerHTML = `<strong style="color: red;">Error:</strong><br>${result.message}`;
+                }
+                
+            } catch (error) {
+                console.error('Fetch error:', error);
+                resultDiv.innerHTML = `<strong style="color: red;">Fetch Error:</strong><br>${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>

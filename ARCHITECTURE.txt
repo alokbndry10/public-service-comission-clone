@@ -1,0 +1,221 @@
+====================================================================
+           E-GOV PROJECT ARCHITECTURE DIAGRAM
+====================================================================
+
+┌─────────────────────────────────────────────────────────────────┐
+│                      FRONTEND (HTML/CSS/JS)                     │
+│  ┌──────────┬──────────┬──────────┬──────────┬──────────────┐  │
+│  │ index.   │notices.  │apps.html │exams.    │contact.html  │  │
+│  │  html    │  html    │          │  html    │              │  │
+│  └────┬─────┴────┬─────┴────┬─────┴────┬─────┴──────┬───────┘  │
+│       │          │          │          │            │          │
+│       └──────────┴──────────┴──────────┴────────────┘          │
+│                              │                                  │
+│                    ┌─────────▼─────────┐                       │
+│                    │  api-handler.js   │                       │
+│                    │  (JavaScript API  │                       │
+│                    │   Functions)      │                       │
+│                    └─────────┬─────────┘                       │
+└──────────────────────────────┼─────────────────────────────────┘
+                               │
+                        AJAX / Fetch API
+                               │
+┌──────────────────────────────▼─────────────────────────────────┐
+│                    API LAYER (PHP Backend)                      │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │                  config/database.php                    │   │
+│  │              (Database Connection Class)                │   │
+│  └──────────────────────────┬──────────────────────────────┘   │
+│                             │                                   │
+│  ┌──────────────┬───────────┼───────────┬────────────────┐    │
+│  │              │           │           │                │    │
+│  ▼              ▼           ▼           ▼                ▼    │
+│ ┌────────┐  ┌────────┐  ┌────────┐  ┌────────┐  ┌──────────┐ │
+│ │notices │  │apps.   │  │submit_ │  │contact │  │exams.php │ │
+│ │ .php   │  │php     │  │app.php │  │ .php   │  │          │ │
+│ └────────┘  └────────┘  └────────┘  └────────┘  └──────────┘ │
+│                                                                 │
+│ ┌────────┐  ┌────────────┐                                    │
+│ │results │  │publications│                                    │
+│ │ .php   │  │   .php     │                                    │
+│ └────────┘  └────────────┘                                    │
+│                                                                 │
+│              (All return JSON responses)                       │
+└─────────────────────────────┬───────────────────────────────────┘
+                              │
+                        PDO Connection
+                              │
+┌─────────────────────────────▼───────────────────────────────────┐
+│                    DATABASE LAYER (MySQL)                       │
+│                         egov_db                                 │
+│  ┌──────────────────────────────────────────────────────────┐  │
+│  │                     TABLES                               │  │
+│  │                                                          │  │
+│  │  ┌─────────────┐  ┌────────────┐  ┌────────────────┐  │  │
+│  │  │  notices    │  │applications│  │ exam_schedules │  │  │
+│  │  │             │  │            │  │                │  │  │
+│  │  │ - id        │  │ - id       │  │ - id           │  │  │
+│  │  │ - title     │  │ - position │  │ - exam_name    │  │  │
+│  │  │ - category  │  │ - dept     │  │ - exam_date    │  │  │
+│  │  │ - date      │  │ - deadline │  │ - exam_time    │  │  │
+│  │  └─────────────┘  └────────────┘  └────────────────┘  │  │
+│  │                                                          │  │
+│  │  ┌─────────────┐  ┌──────────────────┐  ┌───────────┐ │  │
+│  │  │  results    │  │ user_applications│  │  contact  │ │  │
+│  │  │             │  │                  │  │ _messages │ │  │
+│  │  │ - id        │  │ - id             │  │           │ │  │
+│  │  │ - exam_name │  │ - app_id (FK)    │  │ - id      │ │  │
+│  │  │ - adv_no    │  │ - full_name      │  │ - name    │ │  │
+│  │  │ - file_path │  │ - email          │  │ - email   │ │  │
+│  │  └─────────────┘  └──────────────────┘  └───────────┘ │  │
+│  │                                                          │  │
+│  │  ┌──────────────┐                                       │  │
+│  │  │ publications │                                       │  │
+│  │  │              │                                       │  │
+│  │  │ - id         │                                       │  │
+│  │  │ - title      │                                       │  │
+│  │  │ - category   │                                       │  │
+│  │  └──────────────┘                                       │  │
+│  └──────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+
+
+====================================================================
+                        DATA FLOW DIAGRAM
+====================================================================
+
+USER ACTION                    FLOW
+───────────                    ────
+
+1. Visit Website
+   └─→ Browser requests HTML
+       └─→ Server sends HTML/CSS/JS
+           └─→ Browser renders page
+
+2. Load Notices
+   └─→ JavaScript calls fetchNotices()
+       └─→ AJAX GET to api/notices.php
+           └─→ PHP queries database
+               └─→ Returns JSON data
+                   └─→ JavaScript displays notices
+
+3. Submit Application
+   └─→ User fills form
+       └─→ JavaScript calls submitApplication()
+           └─→ AJAX POST to api/submit_application.php
+               └─→ PHP validates data
+                   └─→ Uploads file (if any)
+                       └─→ Inserts to database
+                           └─→ Returns success/error JSON
+                               └─→ JavaScript shows message
+
+4. Contact Form
+   └─→ User fills contact form
+       └─→ JavaScript calls submitContactForm()
+           └─→ AJAX POST to api/contact.php
+               └─→ PHP validates & saves to database
+                   └─→ Returns JSON response
+                       └─→ JavaScript displays confirmation
+
+
+====================================================================
+                      FOLDER STRUCTURE
+====================================================================
+
+C:\xampp\htdocs\egov\
+│
+├── config/
+│   └── database.php              ← Database connection
+│
+├── api/                          ← API Endpoints (PHP)
+│   ├── notices.php
+│   ├── applications.php
+│   ├── submit_application.php
+│   ├── contact.php
+│   ├── exams.php
+│   ├── results.php
+│   └── publications.php
+│
+├── js/                           ← JavaScript files
+│   └── api-handler.js
+│
+├── uploads/                      ← File uploads storage
+│   ├── notices/
+│   ├── applications/
+│   └── results/
+│
+├── *.html                        ← Frontend pages
+├── style.css                     ← Styles
+├── database-setup.sql            ← Database schema
+├── test-api.html                 ← API testing page
+├── README.md                     ← Complete documentation
+└── QUICK-START.txt               ← Quick guide
+
+
+====================================================================
+                    REQUEST/RESPONSE FLOW
+====================================================================
+
+Example: Fetching Notices
+─────────────────────────
+
+1. USER clicks on "सूचनाहरू" page
+
+2. BROWSER loads notices.html
+   └─→ Executes JavaScript
+
+3. JAVASCRIPT calls:
+   fetchNotices(1, 10)
+   
+4. AJAX REQUEST:
+   GET http://localhost/egov/api/notices.php?page=1&limit=10
+
+5. PHP (notices.php):
+   ┌─→ Include database.php
+   ├─→ Connect to MySQL
+   ├─→ Execute SQL: SELECT * FROM notices...
+   ├─→ Fetch results
+   └─→ Return JSON:
+       {
+         "success": true,
+         "data": [
+           {
+             "id": 1,
+             "title": "सेवा सम्बन्धी सूचना",
+             "category": "सूचना",
+             "publish_date": "2026-01-05"
+           }
+         ],
+         "pagination": {...}
+       }
+
+6. JAVASCRIPT receives JSON
+   └─→ Parses data
+       └─→ Creates HTML elements
+           └─→ Displays on page
+
+
+====================================================================
+                      SECURITY LAYERS
+====================================================================
+
+Layer 1: Input Validation
+   ├─→ JavaScript form validation
+   └─→ PHP server-side validation
+
+Layer 2: Database Security
+   ├─→ PDO Prepared Statements (prevents SQL injection)
+   └─→ Parameter binding
+
+Layer 3: File Upload Security
+   ├─→ File type validation
+   ├─→ File size limits
+   └─→ Unique filename generation
+
+Layer 4: Error Handling
+   ├─→ Try-catch blocks
+   ├─→ Custom error messages
+   └─→ Error logging
+
+
+====================================================================

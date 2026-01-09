@@ -1,0 +1,180 @@
+========================================
+E-GOV PROJECT - QUICK START GUIDE
+========================================
+
+🚀 QUICK SETUP (After Installing XAMPP)
+========================================
+
+STEP 1: Start Services
+----------------------
+1. Open XAMPP Control Panel
+2. Click "Start" for Apache
+3. Click "Start" for MySQL
+4. Wait for both to show "Running"
+
+STEP 2: Setup Database
+----------------------
+1. Open browser → http://localhost/phpmyadmin
+2. Click "New" → Create database: egov_db
+3. Collation: utf8mb4_unicode_ci → Click "Create"
+4. Click on egov_db → Click "SQL" tab
+5. Open file: database-setup.sql (in your egov folder)
+6. Copy all SQL content and paste in SQL tab
+7. Click "Go"
+
+STEP 3: Test Everything
+----------------------
+1. Open browser → http://localhost/egov/test-api.html
+2. Click all "Test" buttons
+3. You should see green success messages
+
+STEP 4: View Your Website
+----------------------
+1. Open browser → http://localhost/egov/
+2. Navigate through pages
+3. Everything should work!
+
+========================================
+📁 FILES CREATED
+========================================
+
+Backend (PHP):
+-------------
+✓ config/database.php          - Database connection
+✓ api/notices.php              - Get notices
+✓ api/applications.php         - Get job applications
+✓ api/submit_application.php   - Submit applications
+✓ api/contact.php              - Contact form handler
+✓ api/exams.php                - Exam schedules
+✓ api/results.php              - Exam results
+✓ api/publications.php         - Publications
+
+JavaScript:
+----------
+✓ js/api-handler.js            - API helper functions
+
+Database:
+--------
+✓ database-setup.sql           - Database schema
+
+Documentation:
+-------------
+✓ README.md                    - Complete guide
+✓ QUICK-START.txt              - This file
+
+Testing:
+-------
+✓ test-api.html                - API testing page
+
+========================================
+🔧 TROUBLESHOOTING
+========================================
+
+Problem: "Database connection failed"
+Solution: 
+- Check MySQL is running in XAMPP
+- Database name should be: egov_db
+- Username: root
+- Password: (leave empty)
+
+Problem: "404 Not Found"
+Solution:
+- Make sure project is in: C:\xampp\htdocs\egov\
+- Restart Apache in XAMPP
+
+Problem: APIs not working
+Solution:
+- Check file paths are correct
+- View browser console (F12) for errors
+- Check Apache error log in XAMPP
+
+========================================
+📊 DATABASE TABLES
+========================================
+
+Created tables:
+1. notices              - Store सूचनाहरू
+2. applications         - Store job vacancies
+3. exam_schedules       - Store परीक्षा तालिका
+4. results              - Store exam results
+5. user_applications    - Store submitted applications
+6. contact_messages     - Store contact form messages
+7. publications         - Store प्रकाशनहरू
+
+========================================
+🌐 API ENDPOINTS
+========================================
+
+GET Requests:
+- api/notices.php           - Get all notices
+- api/applications.php      - Get open positions
+- api/exams.php             - Get exam schedules
+- api/results.php           - Get results
+- api/publications.php      - Get publications
+
+POST Requests:
+- api/submit_application.php  - Submit job application
+- api/contact.php             - Submit contact message
+
+========================================
+💡 USING APIs IN YOUR HTML
+========================================
+
+1. Add this to your HTML file:
+   <script src="js/api-handler.js"></script>
+
+2. Use JavaScript to fetch data:
+
+   // Get notices
+   fetchNotices(1, 10).then(result => {
+       if (result.success) {
+           // Display notices
+           console.log(result.data);
+       }
+   });
+
+   // Get applications
+   fetchApplications().then(result => {
+       if (result.success) {
+           // Display applications
+           console.log(result.data);
+       }
+   });
+
+========================================
+📝 SAMPLE DATA (Optional)
+========================================
+
+To add test data, run this SQL in phpMyAdmin:
+
+INSERT INTO notices (title, description, category, publish_date) VALUES
+('सेवा सम्बन्धी सूचना', 'यो एक महत्वपूर्ण सूचना हो', 'सूचना', '2026-01-05'),
+('परीक्षा तालिका प्रकाशित', 'आगामी परीक्षाको तालिका', 'परीक्षा तालिका', '2026-01-04');
+
+INSERT INTO applications (position_title, advertisement_no, department, total_positions, deadline, status) VALUES
+('स्वास्थ्यकर्मी', '123/082', 'स्वास्थ्य विभाग', 10, '2026-02-15', 'खुला'),
+('शिक्षक', '124/082', 'शिक्षा विभाग', 5, '2026-02-20', 'खुला');
+
+========================================
+✅ VERIFICATION CHECKLIST
+========================================
+
+□ XAMPP Apache is running
+□ XAMPP MySQL is running
+□ Database egov_db created
+□ All tables created (7 tables)
+□ Test page shows success: http://localhost/egov/test-api.html
+□ Main website accessible: http://localhost/egov/
+
+========================================
+📞 NEED HELP?
+========================================
+
+1. Check Apache error logs in XAMPP
+2. Check browser console (Press F12)
+3. Verify all files are in correct folders
+4. Read README.md for detailed guide
+
+========================================
+Last Updated: January 6, 2026
+========================================
